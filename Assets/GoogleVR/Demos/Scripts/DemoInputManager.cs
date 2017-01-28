@@ -233,7 +233,7 @@ public class DemoInputManager : MonoBehaviour {
     SetControllerInputActive(isDaydream);
   }
 
-  private void SetGazeInputActive(bool active) {
+  public void SetGazeInputActive(bool active) {
     if (reticlePointer == null) {
       return;
     }
@@ -249,7 +249,7 @@ public class DemoInputManager : MonoBehaviour {
     }
   }
 
-  private void SetControllerInputActive(bool active) {
+  public void SetControllerInputActive(bool active) {
     if (controllerMain != null) {
       controllerMain.SetActive(active);
     }
