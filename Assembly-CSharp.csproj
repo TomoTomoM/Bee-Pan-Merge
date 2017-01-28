@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{E9285815-1B3A-763B-9F79-FA59D2ECE897}</ProjectGuid>
+    <ProjectGuid>{64A02C3D-AE7B-C836-16B1-63E1F24AFA2A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -173,7 +173,7 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Google.ProtocolBuffers">
- <HintPath>/Users/tomohiromaeda/Desktop/beeprefabtest-master/Assets/Plugins/Google.ProtocolBuffers.dll</HintPath>
+ <HintPath>/Users/tomohiromaeda/Desktop/Bee Pan Merge/Assets/Plugins/Google.ProtocolBuffers.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

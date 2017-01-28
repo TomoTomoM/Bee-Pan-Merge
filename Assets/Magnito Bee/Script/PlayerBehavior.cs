@@ -6,7 +6,7 @@ public class PlayerBehavior : MonoBehaviour {
 	public Vector3 normalModePosition;
 	public Vector3 beastModePosition;
 	public HealthAndEnergyScript energyScript;
-
+	public GameObject DemoInputManager;
 	//private bool beastMode = false;
 	//private bool transiteComplete = false;
 	public int playerState = 0; //0:normal,1:charged 2: transit to beast mode, 3:beastmode, 4:transit back to normal
@@ -23,13 +23,15 @@ public class PlayerBehavior : MonoBehaviour {
 		} else if (playerState == 2) {
 			transform.position = Vector3.MoveTowards (transform.position, beastModePosition, 0.1f);
 			if (transform.position == beastModePosition) {
+				DemoInputManager.SetActive (false);
 				playerState = 3;
 			}
 		} else if (playerState == 3) {
-			energyScript.decrementEnergy (10.0f);
+			energyScript.decrementEnergy (0.0f);
 		} else if (playerState == 4) {
 			transform.position = Vector3.MoveTowards (transform.position, normalModePosition, 0.1f);
 			if (transform.position == normalModePosition) {
+				DemoInputManager.SetActive (true);
 				playerState = 0;
 			}
 		}

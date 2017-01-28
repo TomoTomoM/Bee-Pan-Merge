@@ -6,6 +6,7 @@ public class PanController : MonoBehaviour {
 
 	// Use this for initialization
 	public bool inSwatMode = true;
+	public PlayerBehavior playerScript;
 	public GameObject panBase; 
 	private int x = 0;
 	private Vector3 currentAccel = GvrController.Accel;
@@ -34,7 +35,7 @@ public class PanController : MonoBehaviour {
 //			HealthAndEnergyUI.changeEnergyCoeff(0.0f);
 //			testMode = true;
 //		}
-		if (inSwatMode) {
+		if (playerScript.playerState == 3) {
 //			if (!testMode) {
 //				HealthAndEnergyUI.changeEnergyCoeff (8.0f);
 //			}
@@ -57,13 +58,13 @@ public class PanController : MonoBehaviour {
 	}
 
 	public void shouldSwatBee(GameObject bee){
-		Debug.Log ("LookedON");
-		Debug.Log (isLooking);
+		//Debug.Log ("LookedON");
+		//Debug.Log (isLooking);
 		isLooking = true;
-		Debug.Log (isLooking);
+		//Debug.Log (isLooking);
 		beePosition = bee.transform.position;
 		beeObject = bee;
-		Debug.Log (beeObject);
+//		Debug.Log (beeObject);
 	}
 
 	public void lookAwayFromBee(){

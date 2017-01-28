@@ -164,7 +164,7 @@ public class StingerBehavior : MonoBehaviour {
 			print ("Stinger collide");
 			StingerBehavior stingerScript = other.GetComponent<StingerBehavior> ();
 			stingerScript.stingerState = 5;
-			healthscript.increaseEnergy (10.0f);
+			healthscript.increaseEnergy (100.0f);
 		}
 	}
 		
