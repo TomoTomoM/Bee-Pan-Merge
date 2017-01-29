@@ -117,6 +117,10 @@ public class HealthAndEnergyScript : MonoBehaviour {
 		hurtEffect.color = tempHurtColor;
 	}
 
+	public void playHurtSound(){
+		GetComponent<AudioSource>().Play ();
+	}
+
 	IEnumerator fadeAlphaToZero(){
 		Color tempHurtColor = hurtEffect.color;
 		float current_alpha = tempHurtColor.a;

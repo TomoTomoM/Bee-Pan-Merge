@@ -11,6 +11,9 @@ public class BeeBehavior1 : MonoBehaviour {
 	public float stingerInterval;
 	public bool shooted = false;
 	public Transform StingerPoint;
+	public AudioClip dieSound;
+	public AudioClip shootSound;
+
 
 	private GameObject Player;
 	private PlayerBehavior playerScript;
@@ -22,6 +25,7 @@ public class BeeBehavior1 : MonoBehaviour {
 	private bool dead = false;
 	private float deltaTime = 0f;
 	private float animTimeTracker = 0f;
+
 
 	private bool stingerShooted = false;
 
@@ -45,6 +49,7 @@ public class BeeBehavior1 : MonoBehaviour {
 			if (playerScript.playerState < 2) {
 				animTimeTracker += Time.deltaTime;
 			}
+			GetComponent<AudioSource>().Play ();
 			GetXYDisplacement ();
 			transform.Translate (deltaX, deltaY, 0);
 			LookAtPlayer ();
@@ -86,10 +91,15 @@ public class BeeBehavior1 : MonoBehaviour {
 	void ShootStinger(){
 		if (animTimeTracker > stingerInterval && playerScript.playerState <2 ) {
 			anim.Play ("Hit1");
+			AudioSource.PlayClipAtPoint (shootSound, transform.position);
 			stingerShooted = true;
 			print ("shoot stinger");
 			animTimeTracker = 0.0f;
 		}
+	}
+
+	public void hitSound(){
+		AudioSource.PlayClipAtPoint (dieSound, transform.position);
 	}
 
 	IEnumerator CreateStinger (){

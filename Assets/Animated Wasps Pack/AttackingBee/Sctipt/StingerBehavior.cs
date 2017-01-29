@@ -11,6 +11,7 @@ public class StingerBehavior : MonoBehaviour {
 	public HealthAndEnergyScript healthscript;
 	public GameObject explosion;
 	public GameObject healthScreenScript;
+
 	//public float shootingSpeed = 1000.0f;
 
 	//public Vector3 pointer;
@@ -19,6 +20,12 @@ public class StingerBehavior : MonoBehaviour {
 	private GameObject pointer;
 	private Vector3 shootingDestination;
 	public PlayerBehavior playerScript;
+	//public AudioClip shootedSound;
+	//private AudioSource audio;
+	public AudioClip stabSound;
+	public AudioClip stopSound;
+	public AudioClip comingSound;
+	public AudioClip shootingSound;
 
 	//private Rigidbody rb;
 	//private GameObject controllerPointer;
@@ -31,6 +38,7 @@ public class StingerBehavior : MonoBehaviour {
 		reference = GameObject.Find("ref").GetComponent<Transform>();
 		healthscript = GameObject.Find("HealthEnergyCanvas").GetComponent<HealthAndEnergyScript>();
 		player = GameObject.FindGameObjectWithTag ("Player");
+		//AudioSource audio = GetComponent<AudioSource> ();
 		playerScript = player.GetComponent<PlayerBehavior> ();
 		pointer = GameObject.FindGameObjectWithTag ("ControllerPointer");
 		transform.parent = reference.transform;
@@ -72,9 +80,15 @@ public class StingerBehavior : MonoBehaviour {
 		if (Input.GetKeyDown("1")){
 				stingerState = 1;
 			}
+
 		if (Vector3.Distance(player.transform.position,transform.position) < 0.1f){
 			print("Stinger Destroyed");
+			//audio.clip = shootedSound;
+			//healthscript.playHurtSound();
+			AudioSource.PlayClipAtPoint(stabSound,transform.position);
 			healthscript.removeLifePoint ();
+			print ("played");
+			//healthscript.removeLifePoint ();
 			Destroy(this.gameObject);
 		}
 	}
@@ -83,6 +97,7 @@ public class StingerBehavior : MonoBehaviour {
 		//transform.position = transform.position;
 		if (GvrController.Gyro[0] > 0.5){
 			stingerState = 2;
+			AudioSource.PlayClipAtPoint (comingSound, transform.position);
 		}
 				if (Input.GetKeyDown("2")){
 					stingerState = 2;
@@ -135,6 +150,7 @@ public class StingerBehavior : MonoBehaviour {
 
 	public void StoppingStinger(){
 		stingerState += 1;
+		AudioSource.PlayClipAtPoint (stopSound, transform.position);
 	}
 
 	public void ShootingStinger(){
@@ -143,6 +159,7 @@ public class StingerBehavior : MonoBehaviour {
 		} else {
 			shootingDestination = 5*pointer.transform.position-4*transform.position;
 			stingerState = 4;
+			AudioSource.PlayClipAtPoint (shootingSound, transform.position);
 		}
 	}
 
@@ -155,6 +172,7 @@ public class StingerBehavior : MonoBehaviour {
 				//other.gameObject.SetActive (false);
 				beeScript = other.gameObject.GetComponent<BeeBehavior1>();
 				beeScript.shooted = true;
+				beeScript.hitSound ();
 				Rigidbody rb = other.GetComponent<Rigidbody> ();
 				Vector3 movement = shootingDestination - transform.position;
 				rb.AddForce (movement * 300.0f);
@@ -164,7 +182,7 @@ public class StingerBehavior : MonoBehaviour {
 			print ("Stinger collide");
 			StingerBehavior stingerScript = other.GetComponent<StingerBehavior> ();
 			stingerScript.stingerState = 5;
-			healthscript.increaseEnergy (100.0f);
+			healthscript.increaseEnergy (10.0f);
 		}
 	}
 		
