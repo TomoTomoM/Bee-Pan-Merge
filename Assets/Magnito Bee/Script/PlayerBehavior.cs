@@ -11,10 +11,12 @@ public class PlayerBehavior : MonoBehaviour {
 	//private bool beastMode = false;
 	//private bool transiteComplete = false;
 	public int playerState = 0; //0:normal,1:charged 2: transit to beast mode, 3:beastmode, 4:transit back to normal
-
+	public int numberOfBees = 5;
+	public AudioClip stingerStopSound;
+	public AudioClip winningSound;
+	public SoundControl soundScript;
 	// Use this for initialization
 	void Start () {
-	
 	}
 	
 	// Update is called once per frame
@@ -28,17 +30,28 @@ public class PlayerBehavior : MonoBehaviour {
 				InputManagerScript.SetGazeInputActive (true);
 				laser.SetActive (false);
 				playerState = 3;
+				soundScript.playBeastBGM ();
 			}
 		} else if (playerState == 3) {
-			energyScript.decrementEnergy (1.0f);
+			energyScript.decrementEnergy (10.0f);
 		} else if (playerState == 4) {
 			transform.position = Vector3.MoveTowards (transform.position, normalModePosition, 0.1f);
 			if (transform.position == normalModePosition) {
 				InputManagerScript.SetGazeInputActive (false);
 				laser.SetActive (true);
 				playerState = 0;
+				soundScript.playNormalBGM ();
 			}
 		}
-
+		if (numberOfBees == 0) {
+			GetComponent<AudioSource> ().Stop ();
+			AudioSource.PlayClipAtPoint (winningSound, transform.position);
+		}
+	}
+	public void stingerStopSoundPlay(){
+		AudioSource.PlayClipAtPoint (stingerStopSound,transform.position);
+	}
+	public void decrementNumberofBee(){
+		numberOfBees = numberOfBees - 1;
 	}
 }

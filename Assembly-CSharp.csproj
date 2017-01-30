@@ -140,6 +140,7 @@
      <Compile Include="Assets\GoogleVR\Scripts\Video\GvrVideoPlayerTexture.cs" />
      <Compile Include="Assets\Magnito Bee\Script\PlayerBehavior.cs" />
      <Compile Include="Assets\Magnito Bee\Script\StartButton.cs" />
+     <Compile Include="Assets\SoundControl.cs" />
      <Compile Include="Assets\StingerMainMenu.cs" />
      <Compile Include="Assets\panexports\HealthAndEnergyScript.cs" />
      <Compile Include="Assets\panexports\PanController.cs" />

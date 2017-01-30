@@ -27,7 +27,6 @@ public class PanController : MonoBehaviour {
 	
 	// Update is called once per frame
 
-	bool testMode = false;
 	void Update () {
 		//When changing the energyCoeff to account for swatting and non-swatting modes, make sure you include a separate boolean. 
 		//the "testMode" boolean is needed, otherwise it just instantly overwrites the previous update. 
@@ -50,7 +49,6 @@ public class PanController : MonoBehaviour {
 						GameObject pan = GameObject.Instantiate (panBase, beePosition + new Vector3 (0, 0.5f, -6.5f), Quaternion.Euler (0, 0, 0)) as GameObject;
 						//x += 10;
 						StartCoroutine(swatBee (pan, beeObject));
-
 					}
 				}
 			}
@@ -71,17 +69,18 @@ public class PanController : MonoBehaviour {
 	public void lookAwayFromBee(){
 		Debug.Log ("Looked Away");
 		isLooking = false;
-		alreadyMade = false;
+		//alreadyMade = false;
 		beeObject = null;
 	}
 
 	IEnumerator swatBee(GameObject pan, GameObject bee){
 		pan.transform.GetChild(0).gameObject.GetComponent<Animator>().Play("SwatPan");
 		AudioSource.PlayClipAtPoint (hitSound, transform.position);
-		yield return new WaitForSeconds(1.0f);
+		bee.GetComponent<BeeBehavior1> ().shooted = true;
+		yield return new WaitForSeconds(0.5f);
 		bee.SetActive (false);
 		yield return new WaitForSeconds (0.1f);
 		pan.SetActive (false);
-
+		alreadyMade = false;
 	}
 }

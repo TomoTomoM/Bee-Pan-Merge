@@ -22,11 +22,12 @@ public class StingerBehavior : MonoBehaviour {
 	public PlayerBehavior playerScript;
 	//public AudioClip shootedSound;
 	//private AudioSource audio;
+	public AudioClip windSound;
 	public AudioClip stabSound;
 	public AudioClip stopSound;
 	public AudioClip comingSound;
 	public AudioClip shootingSound;
-
+	private AudioSource audio;
 	//private Rigidbody rb;
 	//private GameObject controllerPointer;
 
@@ -35,6 +36,10 @@ public class StingerBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//rb = GetComponent<Rigidbody>();
+		audio = GetComponent<AudioSource>();
+		audio.loop = true;
+		audio.clip = windSound;
+		audio.Play ();
 		reference = GameObject.Find("ref").GetComponent<Transform>();
 		healthscript = GameObject.Find("HealthEnergyCanvas").GetComponent<HealthAndEnergyScript>();
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -66,16 +71,17 @@ public class StingerBehavior : MonoBehaviour {
 			if (stingerState == 4) {
 				shootingUpdate ();
 			}
-			if (stingerState == 5) {
-				Instantiate (explosion, transform.position, transform.rotation);
-				Destroy (this.gameObject);
-			}
+		}
+		if (stingerState == 5) {
+			Instantiate (explosion, transform.position, transform.rotation);
+			Destroy (this.gameObject);
 		}
 	}
 
 
 	void comingUpdate(){
 		float step = speed * Time.deltaTime;
+		//audio.Play ();
 		transform.position = Vector3.MoveTowards (transform.position, player.transform.position, step); //move stinger to the player with constant speed
 		if (Input.GetKeyDown("1")){
 				stingerState = 1;
@@ -85,6 +91,7 @@ public class StingerBehavior : MonoBehaviour {
 			print("Stinger Destroyed");
 			//audio.clip = shootedSound;
 			//healthscript.playHurtSound();
+			audio.Stop();
 			AudioSource.PlayClipAtPoint(stabSound,transform.position);
 			healthscript.removeLifePoint ();
 			print ("played");
@@ -94,6 +101,7 @@ public class StingerBehavior : MonoBehaviour {
 	}
 
 	void stoppingUpdate(){
+		audio.Stop ();
 		//transform.position = transform.position;
 		if (GvrController.Gyro[0] > 0.5){
 			stingerState = 2;
@@ -150,7 +158,7 @@ public class StingerBehavior : MonoBehaviour {
 
 	public void StoppingStinger(){
 		stingerState += 1;
-		AudioSource.PlayClipAtPoint (stopSound, transform.position);
+		playerScript.stingerStopSoundPlay ();
 	}
 
 	public void ShootingStinger(){

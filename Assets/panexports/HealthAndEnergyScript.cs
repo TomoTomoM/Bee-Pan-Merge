@@ -16,7 +16,6 @@ public class HealthAndEnergyScript : MonoBehaviour {
 	public GameObject healthImage;
 	List<GameObject> lifePoints = new List<GameObject>();
 
-
 	public Image energyBar;
 	public float maxEnergy = 100.0f;
 	public float currentEnergy = 0.0f;
@@ -88,7 +87,7 @@ public class HealthAndEnergyScript : MonoBehaviour {
 		//lifePoints [lastIndex].enabled = false;
 		maxLifePoints -= 1;
 		if (maxLifePoints < 1) {
-			Application.LoadLevel ("MainScene");
+			StartCoroutine ("gameOver");
 		} else {
 			lifePoints [lastIndex].SetActive (false);
 			lifePoints.RemoveAt (lastIndex);
@@ -130,6 +129,11 @@ public class HealthAndEnergyScript : MonoBehaviour {
 			current_alpha = tempHurtColor.a;
 			yield return null;
 		}
+	}
+
+	IEnumerator gameOver(){
+		yield return new WaitForSeconds(0.5f);
+		Application.LoadLevel ("MainScene");
 	}
 
 

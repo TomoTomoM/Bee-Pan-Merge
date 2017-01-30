@@ -101,7 +101,6 @@ public class BeeBehavior1 : MonoBehaviour {
 	public void hitSound(){
 		AudioSource.PlayClipAtPoint (dieSound, transform.position);
 	}
-
 	IEnumerator CreateStinger (){
 		if (stingerShooted == true) {
 			yield return new WaitForSeconds (0.3f);
@@ -114,6 +113,7 @@ public class BeeBehavior1 : MonoBehaviour {
 		dead = true;
 		yield return new WaitForSeconds (1.4f);
 		anim.Stop ();
+		playerScript.decrementNumberofBee();
 		gameObject.SetActiveRecursively(false);
 	}
 
